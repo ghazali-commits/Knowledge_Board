@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lemari Ilmu</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--accent2:#1d4ed8;--danger:#dc2626;--shadow:0 10px 30px rgba(15,23,42,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{background:#101827;color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh}.brand{font-size:22px;font-weight:800;margin-bottom:24px}.brand span{color:#60a5fa}.nav button{width:100%;padding:12px 14px;border:0;background:transparent;color:#cbd5e1;text-align:left;border-radius:10px;margin:3px 0;cursor:pointer;font-size:14px}.nav button.active,.nav button:hover{background:#1e293b;color:#fff}.side-note{margin-top:24px;padding:12px;border:1px solid #334155;border-radius:12px;color:#94a3b8;font-size:12px;line-height:1.5}
+main{padding:28px;max-width:1300px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:24px}.top h1{margin:0;font-size:30px}.top p{margin:6px 0 0;color:var(--muted)}.actions{display:flex;gap:10px}.btn{border:0;border-radius:10px;padding:11px 15px;cursor:pointer;font-weight:700}.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent2)}.ghost{background:#fff;color:var(--text);border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}.stat{background:var(--card);padding:18px;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.stat .num{font-size:28px;font-weight:800}.stat .lab{font-size:13px;color:var(--muted);margin-top:5px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px;margin-bottom:18px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.toolbar input,.toolbar select,.form input,.form select,.form textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit}.toolbar .search{flex:1;min-width:220px}.toolbar select{width:180px}
+.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:.15s;background:#fff}.card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,23,42,.08)}.tag{display:inline-block;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#eff6ff;color:#1d4ed8;margin-bottom:10px}.card h3{margin:0 0 7px;font-size:17px}.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.meta{margin-top:14px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.empty{text-align:center;padding:35px;color:var(--muted)}
+.form{display:grid;gap:12px}.form textarea{min-height:160px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal{position:fixed;inset:0;background:rgba(2,6,23,.45);display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-box{width:min(700px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-head h2{margin:0}.close{background:#f3f4f6;border:0;width:36px;height:36px;border-radius:9px;cursor:pointer}.footer-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
+.note-view h2{margin-bottom:5px}.note-view .body{white-space:pre-wrap;line-height:1.7;color:#374151}.note-view .actions{margin-top:18px}.progress{height:8px;background:#eef2f7;border-radius:999px;overflow:hidden;margin-top:10px}.bar{height:100%;background:var(--accent);width:0}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:static;height:auto}.grid{grid-template-columns:1fr 1fr}.shelf{grid-template-columns:1fr 1fr}}@media(max-width:600px){main{padding:16px}.grid,.shelf,.row{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">📚 Lemari <span>Ilmu</span></div>
+  <div class="nav">
+    <button class="active" data-view="dashboard">🏠 Dashboard</button>
+    <button data-view="materi">📖 Semua Materi</button>
+    <button data-view="kategori">🗂️ Kategori</button>
+    <button data-view="progress">✅ Progres Belajar</button>
+  </div>
+  <div class="side-note">Data tersimpan di browser perangkat ini memakai <b>localStorage</b>. Belum perlu server/database online.</div>
+</aside>
+<main>
+  <div class="top">
+    <div><h1 id="pageTitle">Dashboard</h1><p id="pageDesc">Lemari digital untuk nyimpen ilmu lu.</p></div>
+    <div class="actions"><button class="btn ghost" id="seedBtn">Isi Contoh</button><button class="btn primary" id="addBtn">+ Tambah Materi</button></div>
+  </div>
+  <div id="content"></div>
+</main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head"><h2 id="modalTitle">Tambah Materi</h2><button class="close" id="closeBtn">✕</button></div>
+    <form class="form" id="noteForm">
+      <input type="hidden" id="editId" />
+      <div class="row"><div><label>Judul</label><input id="title" required placeholder="Contoh: Variabel & Data Type C++" /></div><div><label>Kategori</label><select id="category"><option>Pemrograman</option><option>Sistem Informasi</option><option>Database</option><option>Matematika</option><option>Bahasa Inggris</option><option>Lainnya</option></select></div></div>
+      <div><label>Status</label><select id="status"><option>Belum mulai</option><option>Sedang belajar</option><option>Paham</option></select></div>
+      <div><label>Isi catatan</label><textarea id="body" required placeholder="Tulis penjelasan, rumus, contoh, atau catatan lu di sini..."></textarea></div>
+      <div class="footer-actions"><button type="button" class="btn ghost" id="cancelBtn">Batal</button><button class="btn primary">Simpan</button></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const KEY='lemari_ilmu_v1';
+let notes=JSON.parse(localStorage.getItem(KEY)||'[]');
+let currentView='dashboard';
+const $=s=>document.querySelector(s);
+function save(){localStorage.setItem(KEY,JSON.stringify(notes));}
+function esc(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function counts(){return {all:notes.length,done:notes.filter(n=>n.status==='Paham').length,learning:notes.filter(n=>n.status==='Sedang belajar').length,cats:new Set(notes.map(n=>n.category)).size};}
+function setHeader(title,desc){$('#pageTitle').textContent=title;$('#pageDesc').textContent=desc;}
+function noteCard(n){return `<div class="card" data-id="${n.id}"><span class="tag">${esc(n.category)}</span><h3>${esc(n.title)}</h3><p>${esc(n.body.slice(0,120))}${n.body.length>120?'…':''}</p><div class="meta"><span>${esc(n.status)}</span><span>${new Date(n.updated).toLocaleDateString('id-ID')}</span></div></div>`}
+function renderDashboard(){setHeader('Dashboard','Lemari digital untuk nyimpen ilmu lu.');const c=counts();const recent=[...notes].sort((a,b)=>b.updated-a.updated).slice(0,6);$('#content').innerHTML=`<div class="grid"><div class="stat"><div class="num">${c.all}</div><div class="lab">Total Materi</div></div><div class="stat"><div class="num">${c.learning}</div><div class="lab">Sedang Dipelajari</div></div><div class="stat"><div class="num">${c.done}</div><div class="lab">Sudah Paham</div></div><div class="stat"><div class="num">${c.cats}</div><div class="lab">Kategori</div></div></div><div class="panel"><h2>📌 Materi Terbaru</h2>${recent.length?`<div class="shelf">${recent.map(noteCard).join('')}</div>`:'<div class="empty">Belum ada materi. Klik <b>+ Tambah Materi</b> buat mulai.</div>'}</div>`;bindCards();}
+function renderMateri(){setHeader('Semua Materi','Cari, buka, edit, atau hapus catatan lu.');$('#content').innerHTML=`<div class="panel"><div class="toolbar"><input class="search" id="search" placeholder="🔎 Cari materi..."/><select id="filter"><option value="">Semua kategori</option>${[...new Set(notes.map(n=>n.category))].sort().map(c=>`<option>${esc(c)}</option>`).join('')}</select><select id="statusFilter"><option value="">Semua status</option><option>Belum mulai</option><option>Sedang belajar</option><option>Paham</option></select></div><div class="shelf" id="list"></div></div>`;updateList();$('#search').oninput=updateList;$('#filter').onchange=updateList;$('#statusFilter').onchange=updateList;}
+function updateList(){const q=($('#search')?.value||'').toLowerCase();const cat=$('#filter')?.value||'';const st=$('#statusFilter')?.value||'';const arr=notes.filter(n=>(!q||n.title.toLowerCase().includes(q)||n.body.toLowerCase().includes(q))&&(!cat||n.category===cat)&&(!st||n.status===st));$('#list').innerHTML=arr.length?arr.map(noteCard).join(''):'<div class="empty" style="grid-column:1/-1">Materi tidak ditemukan.</div>';bindCards();}
+function renderKategori(){setHeader('Kategori','Lihat isi lemari berdasarkan bidang ilmu.');const cats=[...new Set(notes.map(n=>n.category))].sort();$('#content').innerHTML=`<div class="panel"><div class="shelf">${cats.map(c=>`<div class="card" data-cat="${esc(c)}"><span class="tag">KATEGORI</span><h3>${esc(c)}</h3><p>${notes.filter(n=>n.category===c).length} materi tersimpan.</p></div>`).join('')||'<div class="empty" style="grid-column:1/-1">Belum ada kategori.</div>'}</div></div>`;document.querySelectorAll('[data-cat]').forEach(el=>el.onclick=()=>{currentView='materi';document.querySelector('[data-view="materi"]').click();setTimeout(()=>{$('#filter').value=el.dataset.cat;updateList()},0)});}
+function renderProgress(){setHeader('Progres Belajar','Lihat seberapa jauh isi lemari lu sudah dipelajari.');const total=notes.length||1, done=notes.filter(n=>n.status==='Paham').length, learning=notes.filter(n=>n.status==='Sedang belajar').length;$('#content').innerHTML=`<div class="panel"><h2>📈 Progress Keseluruhan</h2><b>${Math.round(done/total*100)}%</b><div class="progress"><div class="bar" style="width:${done/total*100}%"></div></div><p style="color:var(--muted)">${done} dari ${notes.length} materi sudah paham. ${learning} sedang dipelajari.</p></div><div class="panel"><h2>🎯 Daftar Belajar</h2><div class="shelf">${notes.filter(n=>n.status!=='Paham').map(noteCard).join('')||'<div class="empty" style="grid-column:1/-1">Semua materi sudah ditandai paham 🎉</div>'}</div></div>`;bindCards();}
+function render(){({dashboard:renderDashboard,materi:renderMateri,kategori:renderKategori,progress:renderProgress}[currentView])();}
+function bindCards(){document.querySelectorAll('[data-id]').forEach(el=>el.onclick=()=>openNote(el.dataset.id));}
+function openNote(id){const n=notes.find(x=>String(x.id)===String(id));if(!n)return;$('#content').innerHTML=`<div class="panel note-view"><span class="tag">${esc(n.category)}</span><h2>${esc(n.title)}</h2><div style="color:var(--muted);font-size:13px">Status: ${esc(n.status)} • Diperbarui ${new Date(n.updated).toLocaleString('id-ID')}</div><hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><div class="body">${esc(n.body)}</div><div class="actions"><button class="btn ghost" id="backBtn">← Kembali</button><button class="btn ghost" id="editNote">Edit</button><button class="btn" style="background:#fee2e2;color:#991b1b" id="deleteNote">Hapus</button></div></div>`;$('#backBtn').onclick=()=>render();$('#editNote').onclick=()=>editNote(id);$('#deleteNote').onclick=()=>{if(confirm('Hapus materi ini?')){notes=notes.filter(x=>String(x.id)!==String(id));save();render();}};}
+function openModal(edit=null){$('#modal').classList.add('open');$('#editId').value=edit?.id||'';$('#modalTitle').textContent=edit?'Edit Materi':'Tambah Materi';$('#title').value=edit?.title||'';$('#category').value=edit?.category||'Pemrograman';$('#status').value=edit?.status||'Belum mulai';$('#body').value=edit?.body||'';setTimeout(()=>$('#title').focus(),0);}
+function editNote(id){const n=notes.find(x=>String(x.id)===String(id));openModal(n)}
+$('#closeBtn').onclick=$('#cancelBtn').onclick=()=>$('#modal').classList.remove('open');$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')};
+$('#noteForm').onsubmit=e=>{e.preventDefault();const id=$('#editId').value;const data={id:id||Date.now(),title:$('#title').value.trim(),category:$('#category').value,status:$('#status').value,body:$('#body').value.trim(),updated:Date.now()};if(!data.title||!data.body)return;if(id)notes=notes.map(n=>String(n.id)===String(id)?data:n);else notes.push(data);save();$('#modal').classList.remove('open');render();};
+$('#addBtn').onclick=()=>openModal();
+$('#seedBtn').onclick=()=>{if(notes.length&&!confirm('Tambahkan contoh tanpa menghapus data yang ada?'))return;const examples=[['Variabel & Data Type C++','Pemrograman','Sedang belajar','Variabel adalah tempat menyimpan data. Contoh: int umur = 18; string nama = "Ghazali";'],['If Else','Pemrograman','Belum mulai','If else dipakai untuk membuat keputusan berdasarkan kondisi.'],['Apa itu Sistem Informasi?','Sistem Informasi','Paham','Sistem informasi adalah kombinasi manusia, proses, data, dan teknologi untuk menghasilkan informasi yang berguna.'],['Normalisasi Database','Database','Belum mulai','Normalisasi membantu mengurangi redundansi dan masalah anomali pada database.'],['Matriks Dasar','Matematika','Sedang belajar','Matriks adalah susunan bilangan dalam baris dan kolom.']];examples.forEach((x,i)=>notes.push({id:Date.now()+i,title:x[0],category:x[1],status:x[2],body:x[3],updated:Date.now()+i}));save();render();};
+document.querySelectorAll('[data-view]').forEach(btn=>btn.onclick=()=>{currentView=btn.dataset.view;document.querySelectorAll('[data-view]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render()});
+render();
+</script>
+</body>
+</html>
