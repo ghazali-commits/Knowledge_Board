@@ -6,77 +6,665 @@
 <title>Lemari Ilmu</title>
 <style>
 :root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--accent2:#1d4ed8;--danger:#dc2626;--shadow:0 10px 30px rgba(15,23,42,.07)}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{background:#101827;color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh}.brand{font-size:22px;font-weight:800;margin-bottom:24px}.brand span{color:#60a5fa}.nav button{width:100%;padding:12px 14px;border:0;background:transparent;color:#cbd5e1;text-align:left;border-radius:10px;margin:3px 0;cursor:pointer;font-size:14px}.nav button.active,.nav button:hover{background:#1e293b;color:#fff}.side-note{margin-top:24px;padding:12px;border:1px solid #334155;border-radius:12px;color:#94a3b8;font-size:12px;line-height:1.5}
-main{padding:28px;max-width:1300px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:24px}.top h1{margin:0;font-size:30px}.top p{margin:6px 0 0;color:var(--muted)}.actions{display:flex;gap:10px}.btn{border:0;border-radius:10px;padding:11px 15px;cursor:pointer;font-weight:700}.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent2)}.ghost{background:#fff;color:var(--text);border:1px solid var(--line)}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.sidebar{background:#101827;color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh}
+.brand{font-size:22px;font-weight:800;margin-bottom:24px}.brand span{color:#60a5fa}
+.nav button{width:100%;padding:12px 14px;border:0;background:transparent;color:#cbd5e1;text-align:left;border-radius:10px;margin:3px 0;cursor:pointer;font-size:14px}.nav button.active,.nav button:hover{background:#1e293b;color:#fff}
+.side-note{margin-top:24px;padding:12px;border:1px solid #334155;border-radius:12px;color:#94a3b8;font-size:12px;line-height:1.5}
+.account-box{margin-top:18px;padding:12px;border:1px solid #334155;border-radius:12px;font-size:12px;color:#cbd5e1}.account-box b{display:block;color:#fff;font-size:14px;margin-top:3px;word-break:break-word}
+main{padding:28px;max-width:1300px;width:100%;margin:auto}
+.top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:24px}.top h1{margin:0;font-size:30px}.top p{margin:6px 0 0;color:var(--muted)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:10px;padding:11px 15px;cursor:pointer;font-weight:700}.btn:disabled{opacity:.6;cursor:not-allowed}.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent2)}.ghost{background:#fff;color:var(--text);border:1px solid var(--line)}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}.stat{background:var(--card);padding:18px;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.stat .num{font-size:28px;font-weight:800}.stat .lab{font-size:13px;color:var(--muted);margin-top:5px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px;margin-bottom:18px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.toolbar input,.toolbar select,.form input,.form select,.form textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit}.toolbar .search{flex:1;min-width:220px}.toolbar select{width:180px}
-.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:.15s;background:#fff}.card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,23,42,.08)}.tag{display:inline-block;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#eff6ff;color:#1d4ed8;margin-bottom:10px}.card h3{margin:0 0 7px;font-size:17px}.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.meta{margin-top:14px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.empty{text-align:center;padding:35px;color:var(--muted)}
-.form{display:grid;gap:12px}.form textarea{min-height:160px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal{position:fixed;inset:0;background:rgba(2,6,23,.45);display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-box{width:min(700px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-head h2{margin:0}.close{background:#f3f4f6;border:0;width:36px;height:36px;border-radius:9px;cursor:pointer}.footer-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px;margin-bottom:18px}.panel h2{margin-top:0}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.toolbar input,.toolbar select,.form input,.form select,.form textarea,.auth-box input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit}.toolbar .search{flex:1;min-width:220px}.toolbar select{width:180px}
+.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:.15s;background:#fff}.card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,23,42,.08)}.tag{display:inline-block;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#eff6ff;color:#1d4ed8;margin-bottom:10px}.card h3{margin:0 0 7px;font-size:17px}.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.meta{margin-top:14px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:10px}.meta span:last-child{text-align:right}.empty{text-align:center;padding:35px;color:var(--muted)}
+.form{display:grid;gap:12px}.form textarea{min-height:160px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal{position:fixed;inset:0;background:rgba(2,6,23,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:5000}.modal.open{display:flex}.modal-box{width:min(700px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-head h2{margin:0}.close{background:#f3f4f6;border:0;width:36px;height:36px;border-radius:9px;cursor:pointer}.footer-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
 .note-view h2{margin-bottom:5px}.note-view .body{white-space:pre-wrap;line-height:1.7;color:#374151}.note-view .actions{margin-top:18px}.progress{height:8px;background:#eef2f7;border-radius:999px;overflow:hidden;margin-top:10px}.bar{height:100%;background:var(--accent);width:0}
-@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:static;height:auto}.grid{grid-template-columns:1fr 1fr}.shelf{grid-template-columns:1fr 1fr}}@media(max-width:600px){main{padding:16px}.grid,.shelf,.row{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+.status-banner{padding:10px 12px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none}.status-banner.show{display:block}.status-banner.error{background:#fee2e2;color:#991b1b}.status-banner.info{background:#eff6ff;color:#1d4ed8}
+
+.auth-screen{position:fixed;inset:0;z-index:9999;background:#f5f7fb;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-screen.hidden{display:none}
+.auth-box{width:min(420px,100%);background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow)}
+.auth-logo{font-size:24px;font-weight:800;margin-bottom:22px}.auth-logo span{color:var(--accent)}
+.auth-box h1{margin:0 0 6px}.auth-box>p{color:var(--muted);margin:0 0 20px}.auth-box label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
+.auth-submit{width:100%;margin-top:18px}.auth-switch{width:100%;border:0;background:transparent;color:var(--accent);margin-top:16px;cursor:pointer;font-weight:700}.auth-message{min-height:20px;margin-top:12px;font-size:13px;color:var(--danger)}
+.loading-screen{position:fixed;inset:0;z-index:10000;background:#f5f7fb;display:flex;align-items:center;justify-content:center;padding:20px}.loading-screen.hidden{display:none}.loading-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);text-align:center}.spinner{width:30px;height:30px;border:3px solid #dbeafe;border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:static;height:auto}.grid{grid-template-columns:1fr 1fr}.shelf{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){main{padding:16px}.grid,.shelf,.row{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.actions{width:100%}.actions .btn{flex:1}.toolbar select{width:100%}}
 </style>
 </head>
 <body>
-<div class="app">
-<aside class="sidebar">
-  <div class="brand">📚 Lemari <span>Ilmu</span></div>
-  <div class="nav">
-    <button class="active" data-view="dashboard">🏠 Dashboard</button>
-    <button data-view="materi">📖 Semua Materi</button>
-    <button data-view="kategori">🗂️ Kategori</button>
-    <button data-view="progress">✅ Progres Belajar</button>
+
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <b>Memuat Lemari Ilmu...</b>
   </div>
-  <div class="side-note">Data tersimpan di browser perangkat ini memakai <b>localStorage</b>. Belum perlu server/database online.</div>
-</aside>
-<main>
-  <div class="top">
-    <div><h1 id="pageTitle">Dashboard</h1><p id="pageDesc">Lemari digital untuk nyimpen ilmu lu.</p></div>
-    <div class="actions"><button class="btn ghost" id="seedBtn">Isi Contoh</button><button class="btn primary" id="addBtn">+ Tambah Materi</button></div>
+</div>
+
+<div class="auth-screen hidden" id="authScreen">
+  <div class="auth-box">
+    <div class="auth-logo">📚 <span>Lemari Ilmu</span></div>
+    <h1 id="authTitle">Masuk</h1>
+    <p id="authDesc">Masuk ke lemari ilmu lu.</p>
+    <form id="authForm">
+      <label for="authUsername">Username</label>
+      <input id="authUsername" type="text" required minlength="3" maxlength="20" autocomplete="username" placeholder="contoh: ghazali" />
+      <label for="authPassword">Password</label>
+      <input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="Minimal 6 karakter" />
+      <button class="btn primary auth-submit" type="submit" id="authSubmit">Masuk</button>
+    </form>
+    <div class="auth-message" id="authMessage"></div>
+    <button class="auth-switch" id="authSwitch" type="button">Belum punya akun? Daftar</button>
   </div>
-  <div id="content"></div>
-</main>
+</div>
+
+<div class="app" id="appShell" style="display:none">
+  <aside class="sidebar">
+    <div class="brand">📚 Lemari <span>Ilmu</span></div>
+    <div class="nav">
+      <button class="active" data-view="dashboard">🏠 Dashboard</button>
+      <button data-view="materi">📖 Semua Materi</button>
+      <button data-view="kategori">🗂️ Kategori</button>
+      <button data-view="progress">✅ Progres Belajar</button>
+      <button id="logoutBtn">🚪 Keluar</button>
+    </div>
+    <div class="account-box">Akun aktif:<b id="accountUsername">-</b></div>
+    <div class="side-note">Data materi sekarang tersimpan di <b>Supabase</b>, jadi bisa diakses dari laptop dan HP dengan akun yang sama.</div>
+  </aside>
+
+  <main>
+    <div class="top">
+      <div><h1 id="pageTitle">Dashboard</h1><p id="pageDesc">Lemari digital untuk nyimpen ilmu lu.</p></div>
+      <div class="actions"><button class="btn ghost" id="seedBtn">Isi Contoh</button><button class="btn primary" id="addBtn">+ Tambah Materi</button></div>
+    </div>
+    <div class="status-banner" id="statusBanner"></div>
+    <div id="content"></div>
+  </main>
 </div>
 
 <div class="modal" id="modal">
   <div class="modal-box">
-    <div class="modal-head"><h2 id="modalTitle">Tambah Materi</h2><button class="close" id="closeBtn">✕</button></div>
+    <div class="modal-head"><h2 id="modalTitle">Tambah Materi</h2><button class="close" id="closeBtn" type="button">✕</button></div>
     <form class="form" id="noteForm">
       <input type="hidden" id="editId" />
-      <div class="row"><div><label>Judul</label><input id="title" required placeholder="Contoh: Variabel & Data Type C++" /></div><div><label>Kategori</label><select id="category"><option>Pemrograman</option><option>Sistem Informasi</option><option>Database</option><option>Matematika</option><option>Bahasa Inggris</option><option>Lainnya</option></select></div></div>
-      <div><label>Status</label><select id="status"><option>Belum mulai</option><option>Sedang belajar</option><option>Paham</option></select></div>
-      <div><label>Isi catatan</label><textarea id="body" required placeholder="Tulis penjelasan, rumus, contoh, atau catatan lu di sini..."></textarea></div>
-      <div class="footer-actions"><button type="button" class="btn ghost" id="cancelBtn">Batal</button><button class="btn primary">Simpan</button></div>
+      <div class="row">
+        <div><label for="title">Judul</label><input id="title" required placeholder="Contoh: Variabel & Data Type C++" /></div>
+        <div><label for="category">Kategori</label><select id="category"><option>Pemrograman</option><option>Sistem Informasi</option><option>Database</option><option>Matematika</option><option>Bahasa Inggris</option><option>Lainnya</option></select></div>
+      </div>
+      <div><label for="status">Status</label><select id="status"><option>Belum mulai</option><option>Sedang belajar</option><option>Paham</option></select></div>
+      <div><label for="body">Isi catatan</label><textarea id="body" required placeholder="Tulis penjelasan, rumus, contoh, atau catatan lu di sini..."></textarea></div>
+      <div class="footer-actions"><button type="button" class="btn ghost" id="cancelBtn">Batal</button><button class="btn primary" id="saveNoteBtn">Simpan</button></div>
     </form>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const KEY='lemari_ilmu_v1';
-let notes=JSON.parse(localStorage.getItem(KEY)||'[]');
-let currentView='dashboard';
-const $=s=>document.querySelector(s);
-function save(){localStorage.setItem(KEY,JSON.stringify(notes));}
-function esc(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-function counts(){return {all:notes.length,done:notes.filter(n=>n.status==='Paham').length,learning:notes.filter(n=>n.status==='Sedang belajar').length,cats:new Set(notes.map(n=>n.category)).size};}
-function setHeader(title,desc){$('#pageTitle').textContent=title;$('#pageDesc').textContent=desc;}
-function noteCard(n){return `<div class="card" data-id="${n.id}"><span class="tag">${esc(n.category)}</span><h3>${esc(n.title)}</h3><p>${esc(n.body.slice(0,120))}${n.body.length>120?'…':''}</p><div class="meta"><span>${esc(n.status)}</span><span>${new Date(n.updated).toLocaleDateString('id-ID')}</span></div></div>`}
-function renderDashboard(){setHeader('Dashboard','Lemari digital untuk nyimpen ilmu lu.');const c=counts();const recent=[...notes].sort((a,b)=>b.updated-a.updated).slice(0,6);$('#content').innerHTML=`<div class="grid"><div class="stat"><div class="num">${c.all}</div><div class="lab">Total Materi</div></div><div class="stat"><div class="num">${c.learning}</div><div class="lab">Sedang Dipelajari</div></div><div class="stat"><div class="num">${c.done}</div><div class="lab">Sudah Paham</div></div><div class="stat"><div class="num">${c.cats}</div><div class="lab">Kategori</div></div></div><div class="panel"><h2>📌 Materi Terbaru</h2>${recent.length?`<div class="shelf">${recent.map(noteCard).join('')}</div>`:'<div class="empty">Belum ada materi. Klik <b>+ Tambah Materi</b> buat mulai.</div>'}</div>`;bindCards();}
-function renderMateri(){setHeader('Semua Materi','Cari, buka, edit, atau hapus catatan lu.');$('#content').innerHTML=`<div class="panel"><div class="toolbar"><input class="search" id="search" placeholder="🔎 Cari materi..."/><select id="filter"><option value="">Semua kategori</option>${[...new Set(notes.map(n=>n.category))].sort().map(c=>`<option>${esc(c)}</option>`).join('')}</select><select id="statusFilter"><option value="">Semua status</option><option>Belum mulai</option><option>Sedang belajar</option><option>Paham</option></select></div><div class="shelf" id="list"></div></div>`;updateList();$('#search').oninput=updateList;$('#filter').onchange=updateList;$('#statusFilter').onchange=updateList;}
-function updateList(){const q=($('#search')?.value||'').toLowerCase();const cat=$('#filter')?.value||'';const st=$('#statusFilter')?.value||'';const arr=notes.filter(n=>(!q||n.title.toLowerCase().includes(q)||n.body.toLowerCase().includes(q))&&(!cat||n.category===cat)&&(!st||n.status===st));$('#list').innerHTML=arr.length?arr.map(noteCard).join(''):'<div class="empty" style="grid-column:1/-1">Materi tidak ditemukan.</div>';bindCards();}
-function renderKategori(){setHeader('Kategori','Lihat isi lemari berdasarkan bidang ilmu.');const cats=[...new Set(notes.map(n=>n.category))].sort();$('#content').innerHTML=`<div class="panel"><div class="shelf">${cats.map(c=>`<div class="card" data-cat="${esc(c)}"><span class="tag">KATEGORI</span><h3>${esc(c)}</h3><p>${notes.filter(n=>n.category===c).length} materi tersimpan.</p></div>`).join('')||'<div class="empty" style="grid-column:1/-1">Belum ada kategori.</div>'}</div></div>`;document.querySelectorAll('[data-cat]').forEach(el=>el.onclick=()=>{currentView='materi';document.querySelector('[data-view="materi"]').click();setTimeout(()=>{$('#filter').value=el.dataset.cat;updateList()},0)});}
-function renderProgress(){setHeader('Progres Belajar','Lihat seberapa jauh isi lemari lu sudah dipelajari.');const total=notes.length||1, done=notes.filter(n=>n.status==='Paham').length, learning=notes.filter(n=>n.status==='Sedang belajar').length;$('#content').innerHTML=`<div class="panel"><h2>📈 Progress Keseluruhan</h2><b>${Math.round(done/total*100)}%</b><div class="progress"><div class="bar" style="width:${done/total*100}%"></div></div><p style="color:var(--muted)">${done} dari ${notes.length} materi sudah paham. ${learning} sedang dipelajari.</p></div><div class="panel"><h2>🎯 Daftar Belajar</h2><div class="shelf">${notes.filter(n=>n.status!=='Paham').map(noteCard).join('')||'<div class="empty" style="grid-column:1/-1">Semua materi sudah ditandai paham 🎉</div>'}</div></div>`;bindCards();}
-function render(){({dashboard:renderDashboard,materi:renderMateri,kategori:renderKategori,progress:renderProgress}[currentView])();}
-function bindCards(){document.querySelectorAll('[data-id]').forEach(el=>el.onclick=()=>openNote(el.dataset.id));}
-function openNote(id){const n=notes.find(x=>String(x.id)===String(id));if(!n)return;$('#content').innerHTML=`<div class="panel note-view"><span class="tag">${esc(n.category)}</span><h2>${esc(n.title)}</h2><div style="color:var(--muted);font-size:13px">Status: ${esc(n.status)} • Diperbarui ${new Date(n.updated).toLocaleString('id-ID')}</div><hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><div class="body">${esc(n.body)}</div><div class="actions"><button class="btn ghost" id="backBtn">← Kembali</button><button class="btn ghost" id="editNote">Edit</button><button class="btn" style="background:#fee2e2;color:#991b1b" id="deleteNote">Hapus</button></div></div>`;$('#backBtn').onclick=()=>render();$('#editNote').onclick=()=>editNote(id);$('#deleteNote').onclick=()=>{if(confirm('Hapus materi ini?')){notes=notes.filter(x=>String(x.id)!==String(id));save();render();}};}
-function openModal(edit=null){$('#modal').classList.add('open');$('#editId').value=edit?.id||'';$('#modalTitle').textContent=edit?'Edit Materi':'Tambah Materi';$('#title').value=edit?.title||'';$('#category').value=edit?.category||'Pemrograman';$('#status').value=edit?.status||'Belum mulai';$('#body').value=edit?.body||'';setTimeout(()=>$('#title').focus(),0);}
-function editNote(id){const n=notes.find(x=>String(x.id)===String(id));openModal(n)}
-$('#closeBtn').onclick=$('#cancelBtn').onclick=()=>$('#modal').classList.remove('open');$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')};
-$('#noteForm').onsubmit=e=>{e.preventDefault();const id=$('#editId').value;const data={id:id||Date.now(),title:$('#title').value.trim(),category:$('#category').value,status:$('#status').value,body:$('#body').value.trim(),updated:Date.now()};if(!data.title||!data.body)return;if(id)notes=notes.map(n=>String(n.id)===String(id)?data:n);else notes.push(data);save();$('#modal').classList.remove('open');render();};
-$('#addBtn').onclick=()=>openModal();
-$('#seedBtn').onclick=()=>{if(notes.length&&!confirm('Tambahkan contoh tanpa menghapus data yang ada?'))return;const examples=[['Variabel & Data Type C++','Pemrograman','Sedang belajar','Variabel adalah tempat menyimpan data. Contoh: int umur = 18; string nama = "Ghazali";'],['If Else','Pemrograman','Belum mulai','If else dipakai untuk membuat keputusan berdasarkan kondisi.'],['Apa itu Sistem Informasi?','Sistem Informasi','Paham','Sistem informasi adalah kombinasi manusia, proses, data, dan teknologi untuk menghasilkan informasi yang berguna.'],['Normalisasi Database','Database','Belum mulai','Normalisasi membantu mengurangi redundansi dan masalah anomali pada database.'],['Matriks Dasar','Matematika','Sedang belajar','Matriks adalah susunan bilangan dalam baris dan kolom.']];examples.forEach((x,i)=>notes.push({id:Date.now()+i,title:x[0],category:x[1],status:x[2],body:x[3],updated:Date.now()+i}));save();render();};
-document.querySelectorAll('[data-view]').forEach(btn=>btn.onclick=()=>{currentView=btn.dataset.view;document.querySelectorAll('[data-view]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render()});
-render();
+/* =============================
+   1) KONFIGURASI SUPABASE
+   ============================= */
+const SUPABASE_URL = 'https://ylmvmfadiapqcqowtmeo.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_dqeeMNyvpPz8mcWqwFZuHQ_sXNFz01a';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+/* =============================
+   2) STATE APLIKASI
+   ============================= */
+let notes = [];
+let currentView = 'dashboard';
+let authMode = 'login';
+let currentUser = null;
+let currentUsername = '';
+
+const $ = (selector) => document.querySelector(selector);
+
+function escapeHtml(value){
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[char]));
+}
+
+function showStatus(message, type='info'){
+  const el = $('#statusBanner');
+  el.textContent = message || '';
+  el.className = 'status-banner' + (message ? ' show ' + type : '');
+}
+
+function showAuthMessage(message){
+  $('#authMessage').textContent = message || '';
+}
+
+function normalizeUsername(username){
+  return username.trim().toLowerCase();
+}
+
+/* Supabase Auth tetap memakai email di belakang layar.
+   User hanya melihat username di UI. */
+function internalEmail(username){
+  return `${normalizeUsername(username)}@lemari-ilmu.local`;
+}
+
+function setAuthMode(mode){
+  authMode = mode;
+  showAuthMessage('');
+  $('#authPassword').value = '';
+
+  if(mode === 'login'){
+    $('#authTitle').textContent = 'Masuk';
+    $('#authDesc').textContent = 'Masuk ke lemari ilmu lu.';
+    $('#authSubmit').textContent = 'Masuk';
+    $('#authSwitch').textContent = 'Belum punya akun? Daftar';
+    $('#authPassword').setAttribute('autocomplete','current-password');
+  }else{
+    $('#authTitle').textContent = 'Daftar';
+    $('#authDesc').textContent = 'Bikin akun Lemari Ilmu lu.';
+    $('#authSubmit').textContent = 'Daftar';
+    $('#authSwitch').textContent = 'Sudah punya akun? Masuk';
+    $('#authPassword').setAttribute('autocomplete','new-password');
+  }
+}
+
+/* =============================
+   3) AUTHENTICATION
+   ============================= */
+async function createProfile(user, username){
+  const { error } = await supabaseClient
+    .from('profiles')
+    .upsert({ id:user.id, username }, { onConflict:'id' });
+
+  if(error) throw error;
+}
+
+async function loadProfile(user){
+  const { data, error } = await supabaseClient
+    .from('profiles')
+    .select('username')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if(error) throw error;
+
+  currentUsername = data?.username || '';
+  $('#accountUsername').textContent = currentUsername || 'User';
+}
+
+async function handleAuth(event){
+  event.preventDefault();
+
+  const username = normalizeUsername($('#authUsername').value);
+  const password = $('#authPassword').value;
+
+  if(!/^[a-z0-9._-]{3,20}$/.test(username)){
+    showAuthMessage('Username 3–20 karakter. Pakai huruf kecil, angka, titik, _ atau -.');
+    return;
+  }
+
+  if(password.length < 6){
+    showAuthMessage('Password minimal 6 karakter.');
+    return;
+  }
+
+  $('#authSubmit').disabled = true;
+  showAuthMessage('Memproses...');
+
+  try{
+    const email = internalEmail(username);
+
+    if(authMode === 'login'){
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if(error) throw error;
+      currentUser = data.user;
+      await loadProfile(currentUser);
+      showAuthMessage('');
+    }else{
+      const { data, error } = await supabaseClient.auth.signUp({ email, password });
+      if(error) throw error;
+      if(!data.user) throw new Error('Akun gagal dibuat.');
+
+      // Confirm email sudah dimatikan di project lu, jadi session seharusnya tersedia.
+      if(!data.session){
+        throw new Error('Akun dibuat, tapi session belum tersedia. Pastikan Confirm email di Supabase sudah OFF.');
+      }
+
+      currentUser = data.user;
+      await createProfile(currentUser, username);
+      currentUsername = username;
+      $('#accountUsername').textContent = username;
+      showAuthMessage('');
+    }
+  }catch(error){
+    console.error(error);
+    showAuthMessage(error?.message || 'Terjadi kesalahan.');
+  }finally{
+    $('#authSubmit').disabled = false;
+  }
+}
+
+async function logout(){
+  const { error } = await supabaseClient.auth.signOut();
+  if(error){
+    console.error(error);
+    alert(error.message || 'Gagal keluar.');
+  }
+}
+
+async function initAuth(){
+  const { data, error } = await supabaseClient.auth.getSession();
+  if(error) throw error;
+
+  if(data.session){
+    currentUser = data.session.user;
+    await loadProfile(currentUser);
+    await loadNotes();
+    showApplication();
+  }else{
+    showLogin();
+  }
+}
+
+function showLogin(){
+  $('#loadingScreen').classList.add('hidden');
+  $('#appShell').style.display = 'none';
+  $('#authScreen').classList.remove('hidden');
+  $('#authUsername').focus();
+}
+
+function showApplication(){
+  $('#loadingScreen').classList.add('hidden');
+  $('#authScreen').classList.add('hidden');
+  $('#appShell').style.display = 'grid';
+  render();
+}
+
+/* =============================
+   4) DATABASE NOTES
+   ============================= */
+function dbNoteToApp(row){
+  return {
+    id: row.id,
+    title: row.title,
+    category: row.category,
+    status: row.status,
+    body: row.body,
+    updated: row.updated || new Date(row.created_at).getTime(),
+    user_id: row.user_id
+  };
+}
+
+async function loadNotes(){
+  if(!currentUser) return;
+
+  const { data, error } = await supabaseClient
+    .from('notes')
+    .select('id,created_at,title,category,status,body,updated,user_id')
+    .order('updated', { ascending:false });
+
+  if(error) throw error;
+  notes = (data || []).map(dbNoteToApp);
+}
+
+async function addNote(note){
+  if(!currentUser) throw new Error('Belum login.');
+
+  const row = {
+    id: Date.now(),
+    title: note.title,
+    category: note.category,
+    status: note.status,
+    body: note.body,
+    updated: Date.now(),
+    user_id: currentUser.id
+  };
+
+  const { data, error } = await supabaseClient
+    .from('notes')
+    .insert(row)
+    .select('id,created_at,title,category,status,body,updated,user_id')
+    .single();
+
+  if(error) throw error;
+  notes.unshift(dbNoteToApp(data));
+}
+
+async function updateNote(note){
+  if(!currentUser) throw new Error('Belum login.');
+
+  const patch = {
+    title: note.title,
+    category: note.category,
+    status: note.status,
+    body: note.body,
+    updated: Date.now()
+  };
+
+  const { data, error } = await supabaseClient
+    .from('notes')
+    .update(patch)
+    .eq('id', note.id)
+    .select('id,created_at,title,category,status,body,updated,user_id')
+    .single();
+
+  if(error) throw error;
+
+  notes = notes.map(n => String(n.id) === String(note.id) ? dbNoteToApp(data) : n);
+}
+
+async function deleteNote(id){
+  if(!currentUser) throw new Error('Belum login.');
+
+  const { error } = await supabaseClient
+    .from('notes')
+    .delete()
+    .eq('id', id);
+
+  if(error) throw error;
+  notes = notes.filter(n => String(n.id) !== String(id));
+}
+
+/* =============================
+   5) RENDER UI
+   ============================= */
+function counts(){
+  return {
+    all:notes.length,
+    done:notes.filter(n=>n.status==='Paham').length,
+    learning:notes.filter(n=>n.status==='Sedang belajar').length,
+    cats:new Set(notes.map(n=>n.category)).size
+  };
+}
+
+function setHeader(title,desc){
+  $('#pageTitle').textContent=title;
+  $('#pageDesc').textContent=desc;
+}
+
+function noteCard(n){
+  const preview = n.body.slice(0,120);
+  return `<div class="card" data-id="${escapeHtml(n.id)}">
+    <span class="tag">${escapeHtml(n.category)}</span>
+    <h3>${escapeHtml(n.title)}</h3>
+    <p>${escapeHtml(preview)}${n.body.length>120?'…':''}</p>
+    <div class="meta"><span>${escapeHtml(n.status)}</span><span>${new Date(n.updated).toLocaleDateString('id-ID')}</span></div>
+  </div>`;
+}
+
+function renderDashboard(){
+  setHeader('Dashboard','Lemari digital untuk nyimpen ilmu lu.');
+  const c=counts();
+  const recent=[...notes].sort((a,b)=>b.updated-a.updated).slice(0,6);
+
+  $('#content').innerHTML=`
+    <div class="grid">
+      <div class="stat"><div class="num">${c.all}</div><div class="lab">Total Materi</div></div>
+      <div class="stat"><div class="num">${c.learning}</div><div class="lab">Sedang Dipelajari</div></div>
+      <div class="stat"><div class="num">${c.done}</div><div class="lab">Sudah Paham</div></div>
+      <div class="stat"><div class="num">${c.cats}</div><div class="lab">Kategori</div></div>
+    </div>
+    <div class="panel">
+      <h2>📌 Materi Terbaru</h2>
+      ${recent.length ? `<div class="shelf">${recent.map(noteCard).join('')}</div>` : '<div class="empty">Belum ada materi. Klik <b>+ Tambah Materi</b> buat mulai.</div>'}
+    </div>`;
+  bindCards();
+}
+
+function renderMateri(){
+  setHeader('Semua Materi','Cari, buka, edit, atau hapus catatan lu.');
+  const categories=[...new Set(notes.map(n=>n.category))].sort();
+  $('#content').innerHTML=`
+    <div class="panel">
+      <div class="toolbar">
+        <input class="search" id="search" placeholder="🔎 Cari materi..." />
+        <select id="filter"><option value="">Semua kategori</option>${categories.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('')}</select>
+        <select id="statusFilter"><option value="">Semua status</option><option>Belum mulai</option><option>Sedang belajar</option><option>Paham</option></select>
+      </div>
+      <div class="shelf" id="list"></div>
+    </div>`;
+  updateList();
+  $('#search').oninput=updateList;
+  $('#filter').onchange=updateList;
+  $('#statusFilter').onchange=updateList;
+}
+
+function updateList(){
+  const q=($('#search')?.value||'').toLowerCase();
+  const cat=$('#filter')?.value||'';
+  const st=$('#statusFilter')?.value||'';
+  const arr=notes.filter(n=>
+    (!q||n.title.toLowerCase().includes(q)||n.body.toLowerCase().includes(q)) &&
+    (!cat||n.category===cat) &&
+    (!st||n.status===st)
+  );
+  $('#list').innerHTML=arr.length ? arr.map(noteCard).join('') : '<div class="empty" style="grid-column:1/-1">Materi tidak ditemukan.</div>';
+  bindCards();
+}
+
+function renderKategori(){
+  setHeader('Kategori','Lihat isi lemari berdasarkan bidang ilmu.');
+  const cats=[...new Set(notes.map(n=>n.category))].sort();
+  $('#content').innerHTML=`
+    <div class="panel">
+      <div class="shelf">
+        ${cats.map(c=>`<div class="card" data-cat="${escapeHtml(c)}"><span class="tag">KATEGORI</span><h3>${escapeHtml(c)}</h3><p>${notes.filter(n=>n.category===c).length} materi tersimpan.</p></div>`).join('') || '<div class="empty" style="grid-column:1/-1">Belum ada kategori.</div>'}
+      </div>
+    </div>`;
+
+  document.querySelectorAll('[data-cat]').forEach(el=>el.onclick=()=>{
+    currentView='materi';
+    document.querySelector('[data-view="materi"]').click();
+    setTimeout(()=>{
+      if($('#filter')){
+        $('#filter').value=el.dataset.cat;
+        updateList();
+      }
+    },0);
+  });
+}
+
+function renderProgress(){
+  setHeader('Progres Belajar','Lihat seberapa jauh isi lemari lu sudah dipelajari.');
+  const total=notes.length||1;
+  const done=notes.filter(n=>n.status==='Paham').length;
+  const learning=notes.filter(n=>n.status==='Sedang belajar').length;
+  const percent=Math.round(done/total*100);
+
+  $('#content').innerHTML=`
+    <div class="panel">
+      <h2>📈 Progress Keseluruhan</h2>
+      <b>${percent}%</b>
+      <div class="progress"><div class="bar" style="width:${percent}%"></div></div>
+      <p style="color:var(--muted)">${done} dari ${notes.length} materi sudah paham. ${learning} sedang dipelajari.</p>
+    </div>
+    <div class="panel">
+      <h2>🎯 Daftar Belajar</h2>
+      <div class="shelf">
+        ${notes.filter(n=>n.status!=='Paham').map(noteCard).join('') || '<div class="empty" style="grid-column:1/-1">Semua materi sudah ditandai paham 🎉</div>'}
+      </div>
+    </div>`;
+  bindCards();
+}
+
+function render(){
+  const renderers={dashboard:renderDashboard,materi:renderMateri,kategori:renderKategori,progress:renderProgress};
+  (renderers[currentView] || renderDashboard)();
+}
+
+function bindCards(){
+  document.querySelectorAll('[data-id]').forEach(el=>el.onclick=()=>openNote(el.dataset.id));
+}
+
+function openNote(id){
+  const n=notes.find(x=>String(x.id)===String(id));
+  if(!n)return;
+
+  $('#content').innerHTML=`
+    <div class="panel note-view">
+      <span class="tag">${escapeHtml(n.category)}</span>
+      <h2>${escapeHtml(n.title)}</h2>
+      <div style="color:var(--muted);font-size:13px">Status: ${escapeHtml(n.status)} • Diperbarui ${new Date(n.updated).toLocaleString('id-ID')}</div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+      <div class="body">${escapeHtml(n.body)}</div>
+      <div class="actions">
+        <button class="btn ghost" id="backBtn">← Kembali</button>
+        <button class="btn ghost" id="editNote">Edit</button>
+        <button class="btn" style="background:#fee2e2;color:#991b1b" id="deleteNote">Hapus</button>
+      </div>
+    </div>`;
+
+  $('#backBtn').onclick=()=>render();
+  $('#editNote').onclick=()=>openModal(n);
+  $('#deleteNote').onclick=async()=>{
+    if(!confirm('Hapus materi ini?'))return;
+    try{
+      showStatus('Menghapus materi...');
+      await deleteNote(id);
+      showStatus('Materi berhasil dihapus.');
+      render();
+    }catch(error){
+      console.error(error);
+      showStatus(error.message || 'Gagal menghapus materi.','error');
+    }
+  };
+}
+
+function openModal(edit=null){
+  $('#modal').classList.add('open');
+  $('#editId').value=edit?.id||'';
+  $('#modalTitle').textContent=edit?'Edit Materi':'Tambah Materi';
+  $('#title').value=edit?.title||'';
+  $('#category').value=edit?.category||'Pemrograman';
+  $('#status').value=edit?.status||'Belum mulai';
+  $('#body').value=edit?.body||'';
+  setTimeout(()=>$('#title').focus(),0);
+}
+
+async function saveForm(event){
+  event.preventDefault();
+
+  const id=$('#editId').value;
+  const title=$('#title').value.trim();
+  const category=$('#category').value;
+  const status=$('#status').value;
+  const body=$('#body').value.trim();
+
+  if(!title||!body)return;
+
+  $('#saveNoteBtn').disabled=true;
+
+  try{
+    if(id){
+      await updateNote({id,title,category,status,body});
+      showStatus('Materi berhasil diperbarui.');
+    }else{
+      await addNote({title,category,status,body});
+      showStatus('Materi berhasil disimpan.');
+    }
+
+    $('#modal').classList.remove('open');
+    render();
+  }catch(error){
+    console.error(error);
+    showStatus(error.message || 'Gagal menyimpan materi.','error');
+  }finally{
+    $('#saveNoteBtn').disabled=false;
+  }
+}
+
+async function seedExamples(){
+  if(notes.length && !confirm('Tambahkan contoh tanpa menghapus data yang ada?'))return;
+
+  const examples=[
+    ['Variabel & Data Type C++','Pemrograman','Sedang belajar','Variabel adalah tempat menyimpan data. Contoh: int umur = 18; string nama = "Ghazali";'],
+    ['If Else','Pemrograman','Belum mulai','If else dipakai untuk membuat keputusan berdasarkan kondisi.'],
+    ['Apa itu Sistem Informasi?','Sistem Informasi','Paham','Sistem informasi adalah kombinasi manusia, proses, data, dan teknologi untuk menghasilkan informasi yang berguna.'],
+    ['Normalisasi Database','Database','Belum mulai','Normalisasi membantu mengurangi redundansi dan masalah anomali pada database.'],
+    ['Matriks Dasar','Matematika','Sedang belajar','Matriks adalah susunan bilangan dalam baris dan kolom.']
+  ];
+
+  try{
+    $('#seedBtn').disabled=true;
+    showStatus('Menambahkan materi contoh...');
+    for(const [title,category,status,body] of examples){
+      await addNote({title,category,status,body});
+    }
+    showStatus('5 materi contoh berhasil ditambahkan.');
+    render();
+  }catch(error){
+    console.error(error);
+    showStatus(error.message || 'Gagal menambahkan contoh.','error');
+  }finally{
+    $('#seedBtn').disabled=false;
+  }
+}
+
+/* =============================
+   6) EVENTS
+   ============================= */
+$('#authForm').addEventListener('submit',handleAuth);
+$('#authSwitch').addEventListener('click',()=>setAuthMode(authMode==='login'?'signup':'login'));
+$('#logoutBtn').addEventListener('click',logout);
+$('#addBtn').addEventListener('click',()=>openModal());
+$('#seedBtn').addEventListener('click',seedExamples);
+$('#closeBtn').addEventListener('click',()=>$('#modal').classList.remove('open'));
+$('#cancelBtn').addEventListener('click',()=>$('#modal').classList.remove('open'));
+$('#modal').addEventListener('click',(event)=>{if(event.target.id==='modal')$('#modal').classList.remove('open')});
+$('#noteForm').addEventListener('submit',saveForm);
+
+document.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>{
+  currentView=btn.dataset.view;
+  document.querySelectorAll('[data-view]').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}));
+
+supabaseClient.auth.onAuthStateChange(async(event, session)=>{
+  if(session){
+    currentUser=session.user;
+    try{
+      await loadProfile(currentUser);
+      await loadNotes();
+      showApplication();
+    }catch(error){
+      console.error(error);
+      showStatus(error.message || 'Gagal memuat data.','error');
+      showApplication();
+    }
+  }else{
+    currentUser=null;
+    currentUsername='';
+    notes=[];
+    showLogin();
+  }
+});
+
+/* =============================
+   7) MULAI
+   ============================= */
+(async function start(){
+  try{
+    if(!SUPABASE_PUBLISHABLE_KEY || SUPABASE_PUBLISHABLE_KEY.includes('PASTE_')){
+      throw new Error('Isi SUPABASE_PUBLISHABLE_KEY dulu di bagian konfigurasi.');
+    }
+    await initAuth();
+  }catch(error){
+    console.error(error);
+    $('#loadingScreen').classList.add('hidden');
+    $('#authScreen').classList.remove('hidden');
+    showAuthMessage(error.message || 'Gagal menginisialisasi aplikasi.');
+  }
+})();
 </script>
 </body>
 </html>
